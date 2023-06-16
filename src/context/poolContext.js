@@ -32,13 +32,12 @@ export const PoolContextProvider = ({ children }) => {
     }
   } = useApplicationContext();
 
-
   //pool data
   const { data } = useQuery({
     queryKey: ['pools'],
     queryFn: async () =>
       request(
-        "https://api.studio.thegraph.com/query/48288/bsc-testnet-ido-factory/version/latest",
+        process.env.REACT_APP_IDO_GRAPH_URL,
         GET_ALL_LAUNCHPAD_INFO
       ),
   })
@@ -68,7 +67,7 @@ export const PoolContextProvider = ({ children }) => {
     queryKey: ['lockers'],
     queryFn: async () =>
       request(
-        'https://api.studio.thegraph.com/query/48288/locker-bsc-testnet/version/latest',
+        process.env.REACT_APP_LOCKER_GRAPH_URL,
         GET_ALL_LOCKER
       ),
   })

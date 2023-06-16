@@ -31,9 +31,9 @@ export const ApplicationContextProvider = ({ children }) => {
   // const [IDOFactoryAddress, setIDOFactoryAddress] = useState("0x304eC7ddA1D83E65D53770cF0A8BA6626EfbAf5f");
   // const [TokenLockerFactoryAddress, setTokenLockerFactoryAddress] = useState("0x0810c7DB3A5B26fceE8D0C64f453Ad624DE37b78");
 
-  const [FeeTokenAddress, setFeeTokenAddress] = useState("0xaD337556Adfa1a1DE33DEedB5Af27Cb99D6A954d");
-  const [IDOFactoryAddress, setIDOFactoryAddress] = useState("0xb983D772100d519b4e91C15EFF6a10764B601E6F");
-  const [TokenLockerFactoryAddress, setTokenLockerFactoryAddress] = useState("0x2f91CC6529f91152999Aba81cdE0CaA98Ca3Ed65");
+  const [FeeTokenAddress, setFeeTokenAddress] = useState(process.env.REACT_APP_FEE_TOKEN);
+  const [IDOFactoryAddress, setIDOFactoryAddress] = useState(process.env.REACT_APP_IDO_FACTORY_ADDRESS);
+  const [TokenLockerFactoryAddress, setTokenLockerFactoryAddress] = useState(process.env.REACT_APP_LOCKER_FACTORY_ADDRESS);
 
   const [isAppConfigured, setIsAppConfigured] = useState(Boolean(
     domainSettings?.contracts?.[chainId]?.FeeTokenAddress
