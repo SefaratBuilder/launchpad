@@ -57,7 +57,13 @@ function App() {
         </s.Container> */}
         {!active ?
           <Connection />
-          :  (
+          :  (isDomainDataFetching || !isDomainDataFetched) ? (
+            <s.LoaderWrapper>
+              <Loader size="2.8rem" />
+            </s.LoaderWrapper>
+            ) : !isAppConfigured ? (
+              <Manage />
+            ) : (
             <>
               <Navigation />
               <s.Container ai="center">

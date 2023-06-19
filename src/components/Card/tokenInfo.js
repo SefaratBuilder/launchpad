@@ -79,10 +79,10 @@ const TokenInfo = (props) => {
           <s.TextID>${idoInfo.tokenSymbol}</s.TextID>
         </s.Container>
         <SocialMediaModal
-          website={idoInfo.metadata?.links.website}
-          discord={idoInfo.metadata?.links.discord}
-          telegram={idoInfo.metadata?.links.telegram}
-          twitter={idoInfo.metadata?.links.twitter}
+          website={idoInfo.metadata?.links?.website}
+          discord={idoInfo.metadata?.links?.discord}
+          telegram={idoInfo.metadata?.links?.telegram}
+          twitter={idoInfo.metadata?.links?.twitter}
         />
       </s.Container>
       <s.SpacerSmall />

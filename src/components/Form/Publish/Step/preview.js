@@ -190,7 +190,7 @@ export default function Preview() {
       triggerUpdateAccountData();
       const IDOCreatedIndex = receipt?.events?.findIndex?.((i) => i?.event === "IDOCreated");
       if (IDOCreatedIndex || IDOCreatedIndex === 0){
-        navigate(`../launchpad/${receipt.events[IDOCreatedIndex].args.idoPool}`)
+        navigate(`../launchpad/`)
       }
     } catch (error) {
       console.log("createIDO Error: ", error);

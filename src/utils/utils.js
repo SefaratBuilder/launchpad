@@ -100,7 +100,7 @@ export const isValidToken = (_tokenInfo) => {
   }
 };
 
-export const loadPoolData = async (idoPool) => {
+export const loadPoolData = async (idoPool,infuraDedicatedGateway) => {
   try {
 
     let metadataURL = idoPool.metadataURL
@@ -110,16 +110,17 @@ export const loadPoolData = async (idoPool) => {
 
     const userData = idoPool.userInfos
     const owner = idoPool.owner
-    const data = {"image": "https://ipfs.infura.io/ipfs/QmUdW1rRH8KnPHn9K75tDM9Lazdd681pK5nYsTSazXRcCt",
-    "description": "Test token with create IDO fee",
-    "links": {
-        "website": "",
-        "discord": "",
-        "telegram": "",
-        "twitter": ""
-    }
-}   
-    let metadata =data
+//     const data = {"image": "https://ipfs.infura.io/ipfs/QmUdW1rRH8KnPHn9K75tDM9Lazdd681pK5nYsTSazXRcCt",
+//     "description": "Test token with create IDO fee",
+//     "links": {
+//         "website": "",
+//         "discord": "",
+//         "telegram": "",
+//         "twitter": ""
+//     }
+// }   
+//     let metadata =data
+    let metadata = await getTokenURI(metadataURL, infuraDedicatedGateway);
    
     let tokenName = await token.methods.name().call();
     let tokenSymbol = await token.methods.symbol().call();
@@ -349,7 +350,7 @@ export function getTokenURI(uri, infuraDedicatedGateway) {
       return responseJson;
     })
     .catch((error) => {
-      console.error(error);
+      return ""
     });
 }
 
@@ -482,7 +483,8 @@ export function getContract(address, ABI, library, account = '') {
 }
 
 export const getCurrentDomain = () => {
-  return window.location.hostname || document.location.host || ''; // 'dev-launchpad'
+  return process.env.REACT_APP_LOCAL_DOMAIN
+  // return window.location.hostname || document.location.host || ''; // 'dev-launchpad'
 }
 
 export const validateArray = arr => Array.isArray(arr) && !!arr.length;

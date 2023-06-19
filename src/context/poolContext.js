@@ -51,7 +51,7 @@ export const PoolContextProvider = ({ children }) => {
       (async () => {
         await Promise.all(
           poolDatas.map(async (item) => {
-            const poolData = await utils.loadPoolData(item).then((IDOPoolData) => {
+            const poolData = await utils.loadPoolData(item,ipfsInfuraDedicatedGateway).then((IDOPoolData) => {
 
               setAllPools((p) => ({ ...p, ...{ [IDOPoolData.id]: IDOPoolData } }));
             })

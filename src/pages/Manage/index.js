@@ -16,7 +16,7 @@ export default function Manage() {
     <s.Wrapper>
       <s.BodyWrapper>
         <s.ContentWrapper>
-          {(domainSettings?.admin) ? (
+          {(!domainSettings?.admin) ? (
             <Greetings />
           ) : (!isAdmin) ? (
             isAppConfigured ? (

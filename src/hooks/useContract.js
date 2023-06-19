@@ -13,7 +13,6 @@ import { useActiveWeb3React } from './index';
 
 export function useStorageContract() {
   const { storage, rpc } = networks[STORAGE_NETWORK_ID];
-
   return useMemo(() => {
     if (!storage) return null;
 

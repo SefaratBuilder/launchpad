@@ -22,10 +22,9 @@ const BuyTokenCard = (props) => {
     baseCurrencySymbol
   } = useApplicationContext();
   const idoInfo = usePoolContext().allPools[idoAddress];
- 
+
   if (idoInfo) {
     idoInfo.userData = idoInfo.userData.filter((item) => {
-      console.log(item)
       return item.id == account.toLowerCase()
     })
   }
@@ -35,9 +34,10 @@ const BuyTokenCard = (props) => {
   if (!account) {
     return null;
   }
-  if (!utils.isValidPool(idoInfo)) {
-    return null;
-  }
+  // if (!utils.isValidPool(idoInfo)) {
+   
+  //   return null;
+  // }
   if (!idoInfo) {
     return <s.TextDescription fullWidth>Loading</s.TextDescription>;
   }
@@ -179,7 +179,7 @@ const BuyTokenCard = (props) => {
           <s.TextID>My invested {baseCurrencySymbol}</s.TextID>
           <s.TextDescription>
 
-            { idoInfo.userData[0]?.totalInvestedETH ? (BigNumber(library.web3.utils.fromWei(idoInfo.userData[0].totalInvestedETH)).toFormat(
+            {idoInfo.userData[0]?.totalInvestedETH ? (BigNumber(library.web3.utils.fromWei(idoInfo.userData[0].totalInvestedETH)).toFormat(
               2
             ) + " " + baseCurrencySymbol) : '0'}
           </s.TextDescription>

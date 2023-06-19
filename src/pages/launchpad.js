@@ -17,9 +17,9 @@ const Launchpad = (props) => {
   //   if (location.pathname === '/') navigate('/launchpad');
   // }, []);
 
-  // if (!contract.web3) {
-  //   return null;
-  // }
+  if (!contract.web3) {
+    return null;
+  }
 
   return (
     <s.Container ai="center">

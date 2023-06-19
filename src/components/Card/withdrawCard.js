@@ -26,9 +26,9 @@ const WithdrawETH = (props) => {
     return null;
   }
 
-  if (!utils.isValidPool(idoInfo)) {
-    return null;
-  }
+  // if (!utils.isValidPool(idoInfo)) {
+  //   return null;
+  // }
 
   if (idoInfo.owner.toLowerCase() !== account.toLowerCase()) {
     return null;

@@ -30,6 +30,7 @@ const Footer = () => {
   const {
     IDOFactoryAddress,
     TokenLockerFactoryAddress,
+    networkExplorer
   } = useApplicationContext();
 
   const year = new Date().getFullYear()
@@ -58,11 +59,11 @@ const Footer = () => {
           <Heading>Contract Addresses</Heading>
           <FooterLink
             target="_blank"
-          // href={
-          //   networkExplorer +
-          //   "/address/" +
-          //   IDOFactoryAddress
-          // }
+          href={
+            networkExplorer +
+            "/address/" +
+            IDOFactoryAddress
+          }
           >
             IDO Factory:
             {IDOFactoryAddress} <FaExternalLinkAlt size=".75em" />
@@ -71,11 +72,11 @@ const Footer = () => {
             // isLockerEnabled && (
             <FooterLink
               target="_blank"
-            // href={
-            //   networkExplorer +
-            //   "/address/" +
-            //   TokenLockerFactoryAddress
-            // }
+            href={
+              networkExplorer +
+              "/address/" +
+              TokenLockerFactoryAddress
+            }
             >
               Locker Factory:
               {TokenLockerFactoryAddress} <FaExternalLinkAlt size=".75em" />
