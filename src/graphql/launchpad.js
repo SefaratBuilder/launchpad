@@ -12,6 +12,7 @@ query {
       weth
     }
     owner
+    unsold
     distributed
     distributedTokens
     finInfo {

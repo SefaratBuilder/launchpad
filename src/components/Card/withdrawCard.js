@@ -132,7 +132,7 @@ const WithdrawETH = (props) => {
           disabled={
             !hasEnded ||
             BigNumber(idoInfo.totalInvestedETH).lt(BigNumber(idoInfo.softCap)) ||
-            idoInfo.balance == 0
+            idoInfo.distributed
           }
           onClick={(e) => {
             e.preventDefault();

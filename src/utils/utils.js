@@ -110,6 +110,8 @@ export const loadPoolData = async (idoPool,infuraDedicatedGateway) => {
 
     const userData = idoPool.userInfos
     const owner = idoPool.owner
+    const unsold = idoPool.unsold
+    const distributed = idoPool.distributed
 //     const data = {"image": "https://ipfs.infura.io/ipfs/QmUdW1rRH8KnPHn9K75tDM9Lazdd681pK5nYsTSazXRcCt",
 //     "description": "Test token with create IDO fee",
 //     "links": {
@@ -165,6 +167,8 @@ export const loadPoolData = async (idoPool,infuraDedicatedGateway) => {
       totalSupply: totalSupply,
       idoAddress: idoPool.id,
       owner: owner,
+      unsold: unsold,
+      distributed: distributed,
       // balance: balance,
       tokenRate: tokenPrice,
       listingRate: listingPrice,
