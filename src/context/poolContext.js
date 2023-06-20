@@ -33,7 +33,7 @@ export const PoolContextProvider = ({ children }) => {
   } = useApplicationContext();
 
   //pool data
-  const { data } = useQuery({
+  const { data, refetch } = useQuery({
     queryKey: ['pools'],
     queryFn: async () =>
       request(
@@ -44,14 +44,14 @@ export const PoolContextProvider = ({ children }) => {
   useEffect(() => {
     setPoolDatas(data?.idopools)
   }, [data])
-  
+
 
   useEffect(() => {
     if (poolDatas) {
       (async () => {
         await Promise.all(
           poolDatas.map(async (item) => {
-            const poolData = await utils.loadPoolData(item,ipfsInfuraDedicatedGateway).then((IDOPoolData) => {
+            const poolData = await utils.loadPoolData(item, ipfsInfuraDedicatedGateway).then((IDOPoolData) => {
 
               setAllPools((p) => ({ ...p, ...{ [IDOPoolData.id]: IDOPoolData } }));
             })
@@ -63,7 +63,7 @@ export const PoolContextProvider = ({ children }) => {
   }, [poolDatas])
 
   //locker data
-  const {data: lockerData} =  useQuery({
+  const { data: lockerData } = useQuery({
     queryKey: ['lockers'],
     queryFn: async () =>
       request(
@@ -83,7 +83,7 @@ export const PoolContextProvider = ({ children }) => {
             const lockerData = await utils.getLockerData(item).then((LockerData) => {
 
               setAllLocker((l) => ({ ...l, ...{ [LockerData.lockerAddress]: LockerData } }));
-             
+
             })
             return { ...item, lockerData }
           }),
@@ -91,9 +91,10 @@ export const PoolContextProvider = ({ children }) => {
       })()
     }
   }, [lockerDatas])
- 
+
 
   const value = {
+    refetch,
     allPools,
     allPoolAddress,
     userPoolAddresses,

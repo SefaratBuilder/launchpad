@@ -120,7 +120,8 @@ export default function Preview() {
 
     }
   };
-
+  console.log(`0x${ETHER.times(softCap).toString(16)}`)
+  console.log(`0x${ETHER.times(minETH).toString(16)}`)
   const createIDO = async () => {
     setLoading(true);
 
@@ -149,6 +150,7 @@ export default function Preview() {
       const tokenURI = "ipfsResonse.ipfsHash";
 
       const rewardToken = tokenAddress;
+
 
       const finInfo = [
         `0x${oneTokenInWei.toString(16)}`,
@@ -189,7 +191,7 @@ export default function Preview() {
 
       triggerUpdateAccountData();
       const IDOCreatedIndex = receipt?.events?.findIndex?.((i) => i?.event === "IDOCreated");
-      if (IDOCreatedIndex || IDOCreatedIndex === 0){
+      if (IDOCreatedIndex || IDOCreatedIndex === 0) {
         navigate(`../launchpad/`)
       }
     } catch (error) {

@@ -31,9 +31,9 @@ export const ApplicationContextProvider = ({ children }) => {
   // const [IDOFactoryAddress, setIDOFactoryAddress] = useState("0x304eC7ddA1D83E65D53770cF0A8BA6626EfbAf5f");
   // const [TokenLockerFactoryAddress, setTokenLockerFactoryAddress] = useState("0x0810c7DB3A5B26fceE8D0C64f453Ad624DE37b78");
 
-  const [FeeTokenAddress, setFeeTokenAddress] = useState(domainSettings?.contracts?.[chainId]?.FeeTokenAddress|| '');
-  const [IDOFactoryAddress, setIDOFactoryAddress] = useState(domainSettings?.contracts?.[chainId]?.FeeTokenAddress|| '');
-  const [TokenLockerFactoryAddress, setTokenLockerFactoryAddress] = useState(domainSettings?.contracts?.[chainId]?.FeeTokenAddress|| '');
+  const [FeeTokenAddress, setFeeTokenAddress] = useState(domainSettings?.contracts?.[chainId]?.FeeTokenAddress || '');
+  const [IDOFactoryAddress, setIDOFactoryAddress] = useState(domainSettings?.contracts?.[chainId]?.FeeTokenAddress || '');
+  const [TokenLockerFactoryAddress, setTokenLockerFactoryAddress] = useState(domainSettings?.contracts?.[chainId]?.FeeTokenAddress || '');
 
   const [isAppConfigured, setIsAppConfigured] = useState(Boolean(
     domainSettings?.contracts?.[chainId]?.FeeTokenAddress

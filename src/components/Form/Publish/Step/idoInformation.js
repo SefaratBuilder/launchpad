@@ -47,12 +47,12 @@ export default function IDOInfo() {
       <s.Container fd={"row"} jc="space-between">
         <s.Container flex={1} style={{ marginLeft: 10, marginRight: 10 }}>
           <NumberField
-            value={BigNumber(context.softCap[0]).toFixed()}
+            value={context.softCap[0]}
             label={"Soft Cap"}
             adornment={baseCurrencySymbol}
             onChange={(e) => {
               e.preventDefault();
-              let val = BigNumber(e.target.value).absoluteValue().toFixed(18);
+              let val = e.target.value;
               if (!isNaN(val)) {
                 context.softCap[1](val);
               } else {
@@ -63,12 +63,12 @@ export default function IDOInfo() {
           <s.TextIDWarning>{context.idoError["softCap"]}</s.TextIDWarning>
           <s.SpacerSmall />
           <NumberField
-            value={BigNumber(context.hardCap[0]).toFixed()}
+            value={context.hardCap[0]}
             label={"Hard Cap"}
             adornment={baseCurrencySymbol}
             onChange={(e) => {
               e.preventDefault();
-              let val = BigNumber(e.target.value).absoluteValue().toFixed(18);
+              let val = e.target.value;
               if (!isNaN(val)) {
                 context.hardCap[1](val);
               } else {
@@ -104,12 +104,12 @@ export default function IDOInfo() {
         </s.Container>
         <s.Container flex={1} style={{ marginLeft: 10, marginRight: 10 }}>
           <NumberField
-            value={BigNumber(context.minETH[0]).toFixed()}
+            value={context.minETH[0]}
             label={"Minimum Buy"}
             adornment={baseCurrencySymbol}
             onChange={(e) => {
               e.preventDefault();
-              let val = BigNumber(e.target.value).absoluteValue().toFixed(18);
+              let val = e.target.value;
               if (!isNaN(val)) {
                 context.minETH[1](val);
               } else {
@@ -120,12 +120,12 @@ export default function IDOInfo() {
           <s.TextIDWarning>{context.idoError["minETH"]}</s.TextIDWarning>
           <s.SpacerSmall />
           <NumberField
-            value={BigNumber(context.maxETH[0]).toFixed()}
+            value={context.maxETH[0]}
             label={"Maximum Buy"}
             adornment={baseCurrencySymbol}
             onChange={(e) => {
               e.preventDefault();
-              let val = BigNumber(e.target.value).absoluteValue().toFixed(18);
+              let val = e.target.value;
               if (!isNaN(val)) {
                 context.maxETH[1](val);
               } else {

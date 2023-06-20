@@ -7,10 +7,12 @@ import { usePoolContext } from "../../context/poolContext";
 import { useIDOPoolContract } from "../../hooks/useContract";
 import * as s from "../../styles/global";
 import { utils } from "../../utils";
+import Loader from "../Loader";
 
 const WithdrawETH = (props) => {
   const { account, library } = useWeb3React();
   const [loading, setLoading] = useState(false);
+  const [loadingWithDraw, setLoadingWithDraw] = useState(false);
   const { idoAddress } = props;
 
   const {
@@ -21,7 +23,7 @@ const WithdrawETH = (props) => {
 
   const idoInfo = usePoolContext().allPools[idoAddress];
   const IDOPoolContract = useIDOPoolContract(idoAddress);
-
+  const refetch = usePoolContext().refetch;
   if (!account || !idoInfo || !library.web3) {
     return null;
   }
@@ -35,7 +37,7 @@ const WithdrawETH = (props) => {
   }
 
   const withdrawETH = async () => {
-    setLoading(true); // TODO: add action loader to the appropriate button
+    setLoadingWithDraw(true); // TODO: add action loader to the appropriate button
     try {
       const isNeedLocker = parseInt(idoInfo.claim) > parseInt(Date.now() / 1000);
 
@@ -47,12 +49,13 @@ const WithdrawETH = (props) => {
       const receipt = await tx.wait();
 
       triggerUpdateAccountData();
+      refetch()
       // TODO: add trigger for update IDOInfo after actions
       console.log("withdrawETH receipt", receipt);
     } catch (err) {
       console.log("withdrawETH Error: ", err);
     } finally {
-      setLoading(false);
+      setLoadingWithDraw(false);
     }
   };
 
@@ -66,6 +69,7 @@ const WithdrawETH = (props) => {
       const receipt = await tx.wait();
 
       triggerUpdateAccountData();
+      refetch()
       // TODO: add trigger for update IDOInfo after actions
       console.log("withdrawToken receipt", receipt);
     } catch (err) {
@@ -87,6 +91,7 @@ const WithdrawETH = (props) => {
       triggerUpdateAccountData();
       // TODO: add trigger for update IDOInfo after actions
       console.log("withdrawUnsoldToken receipt", receipt);
+      refetch()
     } catch (err) {
       console.log("withdrawUnsoldToken Error: ", err);
     } finally {
@@ -123,6 +128,7 @@ const WithdrawETH = (props) => {
         <s.Container flex={2}>
           <s.TextID>Total invested</s.TextID>
           <s.TextDescription>
+            {console.log(idoInfo.totalInvestedETH)}
             {BigNumber(library.web3.utils.fromWei(idoInfo.totalInvestedETH)).toFixed(2) +
               " " +
               baseCurrencySymbol}
@@ -139,7 +145,8 @@ const WithdrawETH = (props) => {
             withdrawETH();
           }}
         >
-          WITHDRAW
+          {!loadingWithDraw ? 'WITH DRAW' :
+            (<div style={{ paddingBottom: '3px' }}><Loader size="24px" /></div>)}
         </s.button>
       </s.Container>
       <s.Container fd="row" ai="center" jc="space-between">
@@ -165,13 +172,14 @@ const WithdrawETH = (props) => {
               withdrawToken();
             }}
           >
-            WITHDRAW ALL TOKEN
+            {!loading ? 'WITHDRAW ALL TOKEN' :
+              (<div style={{ paddingBottom: '3px' }}><Loader size="24px" /></div>)}
           </s.button>
         ) : (
           <s.button
             disabled={
               !hasEnded ||
-              idoInfo.balance > 0 ||
+              !idoInfo.distributed ||
               (!idoInfo.unsold || idoInfo.unsold == "0")
             }
             onClick={(e) => {
@@ -179,7 +187,8 @@ const WithdrawETH = (props) => {
               withdrawUnsoldToken();
             }}
           >
-            WITHDRAW UNSOLD TOKEN
+            {!loading ? 'WITHDRAW UNSOLD TOKEN' :
+              (<div style={{ paddingBottom: '3px' }}><Loader size="24px" /></div>)}
           </s.button>
         )}
       </s.Container>

@@ -10,22 +10,27 @@ import { utils } from "../../utils";
 import { NumberField } from "../FormField";
 import ProgressBar from "../Modal/ProgressBar";
 import PoolCountdown from "../Utils/poolCountdown";
+import Loader from "../Loader";
 
 const BuyTokenCard = (props) => {
   const { account, library } = useWeb3React();
   const [ethAmount, setEthAmount] = useState("0");
   const [tokensToBuy, setTokensToBuy] = useState(0);
-  const [loading, setLoading] = useState(false);
+  const [loadingBuy, setLoadingBuy] = useState(false);
+  const [loadingClaim, setLoadingClaim] = useState(false);
+  const [loadingRefund, setLoadingRefund] = useState(false);
+  const [error, setError] = useState(false);
   const { idoAddress } = props;
   const {
     triggerUpdateAccountData,
     baseCurrencySymbol
   } = useApplicationContext();
   const idoInfo = usePoolContext().allPools[idoAddress];
-
+  const refetch = usePoolContext().refetch
   if (idoInfo) {
     idoInfo.userData = idoInfo.userData.filter((item) => {
-      return item.id == account.toLowerCase()
+      const owner = item.id.split('-')[0]
+      return owner == account.toLowerCase()
     })
   }
 
@@ -46,7 +51,7 @@ const BuyTokenCard = (props) => {
   }
 
   const buyToken = async () => {
-    setLoading(true); // TODO: add action loader to the appropriate button
+    setLoadingBuy(true); // TODO: add action loader to the appropriate button
     try {
       const tx = await IDOPoolContract.pay({
         from: account,
@@ -58,15 +63,16 @@ const BuyTokenCard = (props) => {
       triggerUpdateAccountData();
       // TODO: add trigger for update IDOInfo after actions
       console.log("buyToken receipt", receipt);
+      refetch()
     } catch (err) {
       console.log("buyToken Error: ", err);
     } finally {
-      setLoading(false);
+      setLoadingBuy(false);
     }
   };
 
   const claimToken = async () => {
-    setLoading(true); // TODO: add action loader to the appropriate button
+    setLoadingClaim(true); // TODO: add action loader to the appropriate button
     try {
       const tx = await IDOPoolContract.claim({
         from: account,
@@ -77,15 +83,17 @@ const BuyTokenCard = (props) => {
       triggerUpdateAccountData();
       // TODO: add trigger for update IDOInfo after actions
       console.log("claimToken receipt", receipt);
+      refetch()
+
     } catch (err) {
       console.log("claimToken Error: ", err);
     } finally {
-      setLoading(false);
+      setLoadingClaim(false);
     }
   };
 
   const refund = async () => {
-    setLoading(true); // TODO: add action loader to the appropriate button
+    setLoadingRefund(true); // TODO: add action loader to the appropriate button
     try {
       const tx = await IDOPoolContract.refund({
         from: account,
@@ -96,10 +104,12 @@ const BuyTokenCard = (props) => {
       triggerUpdateAccountData();
       // TODO: add trigger for update IDOInfo after actions
       console.log("refund receipt", receipt);
+      refetch()
+
     } catch (err) {
       console.log("refund Error: ", err);
     } finally {
-      setLoading(false);
+      setLoadingRefund(false);
     }
   };
 
@@ -107,9 +117,9 @@ const BuyTokenCard = (props) => {
   const hasEnded = parseInt(idoInfo.end) < (parseInt(Date.now() / 1000));
   const reachSoftCap = BigNumber(idoInfo.totalInvestedETH).gte(BigNumber(idoInfo.softCap));
 
-  const willhMaxAmountOverflow = BigNumber(ethAmount).gt(
+  const willhMaxAmountOverflow = idoInfo.userData.totalInvestedETH > 0 ? BigNumber(ethAmount).gt(
     BigNumber(idoInfo.max).minus(BigNumber(idoInfo.userData[0]?.totalInvestedETH))
-  );
+  ) : BigNumber(ethAmount).gt(BigNumber(idoInfo.max));
   const reachMaxAmount = BigNumber(idoInfo.max).lte(
     BigNumber(idoInfo.userData[0]?.totalInvestedETH)
   );
@@ -172,7 +182,8 @@ const BuyTokenCard = (props) => {
               claimToken();
             }}
           >
-            CLAIM
+            {!loadingClaim ? 'CLAIM' :
+              (<div style={{ paddingBottom: '3px' }}><Loader size="24px" /></div>)}
           </s.button>
         </s.Container>
       </s.Container>
@@ -193,14 +204,16 @@ const BuyTokenCard = (props) => {
               BigNumber(idoInfo.totalInvestedETH).gte(
                 BigNumber(idoInfo.softCap)
               ) ||
-              BigNumber(idoInfo.userData.totalInvestedETH).lte(0)
+              BigNumber(idoInfo.userData[0]?.totalInvestedETH).lte(0)
+              || !idoInfo.userData[0]?.totalInvestedETH
             }
             onClick={(e) => {
               e.preventDefault();
               refund();
             }}
           >
-            REFUND
+            {!loadingRefund ? 'REFUND' :
+              (<div style={{ paddingBottom: '3px' }}><Loader size="24px" /></div>)}
           </s.button>
         </s.Container>
       </s.Container>
@@ -217,6 +230,7 @@ const BuyTokenCard = (props) => {
             onChange={(e) => {
               e.preventDefault();
               let val = BigNumber(e.target.value).toFixed(0);
+
               if (!isNaN(val)) {
                 setTokensToBuy(val);
                 setEthAmount(
@@ -244,7 +258,8 @@ const BuyTokenCard = (props) => {
               buyToken();
             }}
           >
-            BUY
+            {!loadingBuy ? 'BUY' :
+              (<div style={{ paddingBottom: '3px' }}><Loader size="24px" /></div>)}
           </s.button>
         </s.Container>
       </s.Container>
