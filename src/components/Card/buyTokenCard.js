@@ -35,7 +35,7 @@ const BuyTokenCard = (props) => {
     return null;
   }
   // if (!utils.isValidPool(idoInfo)) {
-   
+
   //   return null;
   // }
   if (!idoInfo) {
@@ -151,11 +151,12 @@ const BuyTokenCard = (props) => {
         <s.Container flex={4}>
           <s.TextID>To claim</s.TextID>
           <s.TextDescription>
-            {BigNumber(idoInfo.userData[0]?.debt)
+
+            {idoInfo.userData[0]?.debt ? BigNumber(idoInfo.userData[0]?.debt)
               .dividedBy(10 ** idoInfo.tokenDecimals)
               .toString() +
               " $" +
-              idoInfo.tokenSymbol}
+              idoInfo.tokenSymbol : 0}
           </s.TextDescription>
         </s.Container>
         <s.Container flex={1}>
@@ -164,6 +165,7 @@ const BuyTokenCard = (props) => {
               !hasEnded ||
               (hasEnded && !reachSoftCap) ||
               BigNumber(idoInfo.userData[0]?.debt).lte(0)
+              || !idoInfo.userData[0]
             }
             onClick={(e) => {
               e.preventDefault();
@@ -181,7 +183,7 @@ const BuyTokenCard = (props) => {
 
             {idoInfo.userData[0]?.totalInvestedETH ? (BigNumber(library.web3.utils.fromWei(idoInfo.userData[0].totalInvestedETH)).toFormat(
               2
-            ) + " " + baseCurrencySymbol) : '0'}
+            ) + " " + baseCurrencySymbol) : '0.00'}
           </s.TextDescription>
         </s.Container>
         <s.Container flex={1}>
