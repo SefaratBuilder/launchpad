@@ -38,6 +38,7 @@ export default function Networks() {
 
   const [chainIdToSetUp, setChainIdToSetUp] = useState((chainId && !!networks?.[chainId || 0]) ? chainId : '');
   const [webSocketRPC, setWebSocketRPC] = useState(networks?.[chainId || 0]?.webSocketRPC || '');
+  const [idoGraphURL, setIdoGraphURL] = useState(networks?.[chainId || 0]?.idoGraphURL || '');
   const [canSaveNetworksSettings, setCanSaveNetworksSettings] = useState(false);
 
   const isStorageNetwork = chainId === STORAGE_NETWORK_ID;
@@ -45,19 +46,21 @@ export default function Networks() {
 
   useEffect(() => {
     const isDifferentSettings =
-      webSocketRPC.toLowerCase() !== networks?.[chainIdToSetUp || 0]?.webSocketRPC?.toLowerCase();
-
+      webSocketRPC.toLowerCase() !== networks?.[chainIdToSetUp || 0]?.webSocketRPC?.toLowerCase() ;
+    const isDifferentGraph = idoGraphURL.toLowerCase() !== networks?.[chainIdToSetUp || 0]?.idoGraphURL?.toLowerCase();
     setCanSaveNetworksSettings(
       isStorageNetwork &&
       SUPPORTED_CHAIN_IDS.includes(chainIdToSetUp) &&
       webSocketRPC &&
       // TODO: add isValidWebSocketRPC with connecting to the ws and check the related chainIdToSetUp
-      isDifferentSettings
+      isDifferentSettings,
+      isDifferentGraph
     );
   }, [networks, webSocketRPC, chainIdToSetUp, isStorageNetwork]);
 
   useEffect(() => {
     setWebSocketRPC(networks?.[chainIdToSetUp || 0]?.webSocketRPC || '');
+    setIdoGraphURL(networks?.[chainIdToSetUp || 0]?.idoGraphURL || '')
   }, [networks, chainIdToSetUp])
 
 
@@ -73,12 +76,13 @@ export default function Networks() {
           networks: {
             [chainIdToSetUp]: {
               webSocketRPC,
+              idoGraphURL
             },
           },
         },
         onReceipt: () => {
-            triggerDomainData();
-          },
+          triggerDomainData();
+        },
         onHash: (hash) => {
           console.log('saveNetworksData hash: ', hash);
         },
@@ -136,6 +140,15 @@ export default function Networks() {
       />
 
       <s.SpacerSmall />
+      <TextField
+        label="IDO Graph URL"
+        value={idoGraphURL}
+        onChange={(e) => {
+          setIdoGraphURL(e.target.value);
+        }}
+      />
+
+      <s.SpacerSmall />
 
       {
         isStorageNetwork ? (
@@ -143,14 +156,14 @@ export default function Networks() {
             onClick={saveNetworksData}
             disabled={!canSaveNetworksSettings}
           >
-            { isLoading ? <Loader /> : 'Save Networks Settings' }
+            {isLoading ? <Loader /> : 'Save Networks Settings'}
           </s.button>
         ) : (
           <s.button
             onClick={switchToStorage}
             disabled={!canChangeNetwork}
           >
-            { isLoading ? <Loader /> : `Switch to ${STORAGE_NETWORK_NAME}` }
+            {isLoading ? <Loader /> : `Switch to ${STORAGE_NETWORK_NAME}`}
           </s.button>
         )
 

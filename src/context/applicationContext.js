@@ -26,7 +26,6 @@ export const ApplicationContextProvider = ({ children }) => {
     triggerDomainData,
   } = useDomainData();
 
-
   // const [FeeTokenAddress, setFeeTokenAddress] = useState("0xc5007E592e9ACE06Cfec11CB7e1C1A18906A43Ec");
   // const [IDOFactoryAddress, setIDOFactoryAddress] = useState("0x304eC7ddA1D83E65D53770cF0A8BA6626EfbAf5f");
   // const [TokenLockerFactoryAddress, setTokenLockerFactoryAddress] = useState("0x0810c7DB3A5B26fceE8D0C64f453Ad624DE37b78");
@@ -34,6 +33,7 @@ export const ApplicationContextProvider = ({ children }) => {
   const [FeeTokenAddress, setFeeTokenAddress] = useState(domainSettings?.contracts?.[chainId]?.FeeTokenAddress || '');
   const [IDOFactoryAddress, setIDOFactoryAddress] = useState(domainSettings?.contracts?.[chainId]?.FeeTokenAddress || '');
   const [TokenLockerFactoryAddress, setTokenLockerFactoryAddress] = useState(domainSettings?.contracts?.[chainId]?.FeeTokenAddress || '');
+  const [idoGraphURL,setIdoGraphURL] = useState(domainSettings?.networks?.[chainId]?.idoGraphURL || '')
 
   const [isAppConfigured, setIsAppConfigured] = useState(Boolean(
     domainSettings?.contracts?.[chainId]?.FeeTokenAddress
@@ -50,6 +50,7 @@ export const ApplicationContextProvider = ({ children }) => {
     setFeeTokenAddress(domainSettings?.contracts?.[chainId]?.FeeTokenAddress || '');
     setIDOFactoryAddress(domainSettings?.contracts?.[chainId]?.IDOFactoryAddress || '');
     setTokenLockerFactoryAddress(domainSettings?.contracts?.[chainId]?.TokenLockerFactoryAddress || '');
+    setIdoGraphURL(domainSettings?.networks?.[chainId]?.idoGraphURL || '')
 
     setIsAppConfigured(Boolean(
       domainSettings?.contracts?.[chainId]?.FeeTokenAddress
@@ -194,6 +195,7 @@ export const ApplicationContextProvider = ({ children }) => {
 
     TokenLockerFactoryAddress,
     TokenLockerFactoryContract,
+    idoGraphURL
   };
 
   return (
