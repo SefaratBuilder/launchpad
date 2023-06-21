@@ -28,7 +28,6 @@ export const fetchContract = (chainId, networks, contracts) => {
     dispatch(fetchContractRequest());
 
     const webSocketRPC = networks?.[chainId]?.webSocketRPC;
-    console.log(webSocketRPC)
     const IDOFactoryAddress = contracts?.[chainId]?.IDOFactoryAddress;
     const TokenLockerFactoryAddress = contracts?.[chainId]?.TokenLockerFactoryAddress;
 

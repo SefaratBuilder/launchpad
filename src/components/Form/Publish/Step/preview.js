@@ -120,8 +120,7 @@ export default function Preview() {
 
     }
   };
-  console.log(`0x${ETHER.times(softCap).toString(16)}`)
-  console.log(`0x${ETHER.times(minETH).toString(16)}`)
+ 
   const createIDO = async () => {
     setLoading(true);
 

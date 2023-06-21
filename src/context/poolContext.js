@@ -7,6 +7,7 @@ import { useApplicationContext } from "./applicationContext";
 import { request, gql } from 'graphql-request'
 import { useQuery } from "@tanstack/react-query";
 import { GET_ALL_LAUNCHPAD_INFO, GET_ALL_LOCKER } from "../graphql/launchpad";
+import { ContactlessOutlined } from "@mui/icons-material";
 
 
 export const PoolContext = createContext({});
@@ -25,13 +26,12 @@ export const PoolContextProvider = ({ children }) => {
   const dispatch = useDispatch();
   const contract = useSelector((state) => state.contract);
   const { account, chainId } = useWeb3React();
-
+  
   const {
     domainSettings: {
       ipfsInfuraDedicatedGateway
     }
   } = useApplicationContext();
-
   //pool data
   const { data, refetch } = useQuery({
     queryKey: ['pools'],
@@ -51,7 +51,7 @@ export const PoolContextProvider = ({ children }) => {
       (async () => {
         await Promise.all(
           poolDatas.map(async (item) => {
-            const poolData = await utils.loadPoolData(item, ipfsInfuraDedicatedGateway).then((IDOPoolData) => {
+            const poolData = await utils.loadPoolData(item, contract.web3,ipfsInfuraDedicatedGateway).then((IDOPoolData) => {
 
               setAllPools((p) => ({ ...p, ...{ [IDOPoolData.id]: IDOPoolData } }));
             })
@@ -80,7 +80,7 @@ export const PoolContextProvider = ({ children }) => {
       (async () => {
         await Promise.all(
           lockerDatas.map(async (item) => {
-            const lockerData = await utils.getLockerData(item).then((LockerData) => {
+            const lockerData = await utils.getLockerData(item,contract.web3).then((LockerData) => {
 
               setAllLocker((l) => ({ ...l, ...{ [LockerData.lockerAddress]: LockerData } }));
 

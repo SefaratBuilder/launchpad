@@ -128,7 +128,6 @@ const WithdrawETH = (props) => {
         <s.Container flex={2}>
           <s.TextID>Total invested</s.TextID>
           <s.TextDescription>
-            {console.log(idoInfo.totalInvestedETH)}
             {BigNumber(library.web3.utils.fromWei(idoInfo.totalInvestedETH)).toFixed(2) +
               " " +
               baseCurrencySymbol}
