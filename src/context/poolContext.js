@@ -31,23 +31,21 @@ export const PoolContextProvider = ({ children }) => {
     domainSettings: {
       ipfsInfuraDedicatedGateway,
     },
-    idoGraphURL
+    idoGraph,
+    lockerGraph
   } = useApplicationContext();
   //pool data
   const { data, refetch } = useQuery({
-    queryKey: ['pools', idoGraphURL],
-    queryFn: () => {
-      return request(
-        idoGraphURL,
+    queryKey: ['pools',idoGraph],
+    queryFn: async () => 
+      await request(
+        process.env.REACT_APP_IDO_GRAPH_URL,
         GET_ALL_LAUNCHPAD_INFO
       )
-    }
-    ,
   }, {
-    enabled: !!idoGraphURL
+    enabled: !!idoGraph
   })
-
-
+  
   useEffect(() => {
     setPoolDatas(data?.idopools)
   }, [data])
@@ -71,12 +69,14 @@ export const PoolContextProvider = ({ children }) => {
 
   //locker data
   const { data: lockerData } = useQuery({
-    queryKey: ['lockers'],
+    queryKey: ['lockers',lockerGraph],
     queryFn: async () =>
       request(
-        process.env.REACT_APP_LOCKER_GRAPH_URL,
+        lockerGraph,
         GET_ALL_LOCKER
       ),
+  },{
+    enabled: !!lockerGraph
   })
   useEffect(() => {
     setLockerDatas(lockerData?.lockers)

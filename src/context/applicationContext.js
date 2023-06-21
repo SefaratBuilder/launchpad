@@ -33,7 +33,8 @@ export const ApplicationContextProvider = ({ children }) => {
   const [FeeTokenAddress, setFeeTokenAddress] = useState(domainSettings?.contracts?.[chainId]?.FeeTokenAddress || '');
   const [IDOFactoryAddress, setIDOFactoryAddress] = useState(domainSettings?.contracts?.[chainId]?.FeeTokenAddress || '');
   const [TokenLockerFactoryAddress, setTokenLockerFactoryAddress] = useState(domainSettings?.contracts?.[chainId]?.FeeTokenAddress || '');
-  const [idoGraphURL,setIdoGraphURL] = useState(domainSettings?.networks?.[chainId]?.idoGraphURL || '')
+  const [idoGraph,setIdoGraph] = useState(domainSettings?.networks?.[chainId]?.idoGraphURL || '')
+  const [lockerGraph,setLockerGraph] = useState(domainSettings?.networks?.[chainId]?.lockerGraphURL || '')
 
   const [isAppConfigured, setIsAppConfigured] = useState(Boolean(
     domainSettings?.contracts?.[chainId]?.FeeTokenAddress
@@ -50,7 +51,8 @@ export const ApplicationContextProvider = ({ children }) => {
     setFeeTokenAddress(domainSettings?.contracts?.[chainId]?.FeeTokenAddress || '');
     setIDOFactoryAddress(domainSettings?.contracts?.[chainId]?.IDOFactoryAddress || '');
     setTokenLockerFactoryAddress(domainSettings?.contracts?.[chainId]?.TokenLockerFactoryAddress || '');
-    setIdoGraphURL(domainSettings?.networks?.[chainId]?.idoGraphURL || '')
+    setIdoGraph(domainSettings?.networks?.[chainId]?.idoGraphURL || '')
+    setLockerGraph(domainSettings?.networks?.[chainId]?.lockerGraphURL || '')
 
     setIsAppConfigured(Boolean(
       domainSettings?.contracts?.[chainId]?.FeeTokenAddress
@@ -195,7 +197,8 @@ export const ApplicationContextProvider = ({ children }) => {
 
     TokenLockerFactoryAddress,
     TokenLockerFactoryContract,
-    idoGraphURL
+    idoGraph,
+    lockerGraph
   };
 
   return (

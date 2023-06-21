@@ -39,6 +39,7 @@ export default function Networks() {
   const [chainIdToSetUp, setChainIdToSetUp] = useState((chainId && !!networks?.[chainId || 0]) ? chainId : '');
   const [webSocketRPC, setWebSocketRPC] = useState(networks?.[chainId || 0]?.webSocketRPC || '');
   const [idoGraphURL, setIdoGraphURL] = useState(networks?.[chainId || 0]?.idoGraphURL || '');
+  const [lockerGraphURL, setLockerGraphURL] = useState(networks?.[chainId || 0]?.lockerGraphURL || '');
   const [canSaveNetworksSettings, setCanSaveNetworksSettings] = useState(false);
 
   const isStorageNetwork = chainId === STORAGE_NETWORK_ID;
@@ -48,19 +49,22 @@ export default function Networks() {
     const isDifferentSettings =
       webSocketRPC.toLowerCase() !== networks?.[chainIdToSetUp || 0]?.webSocketRPC?.toLowerCase() ;
     const isDifferentGraph = idoGraphURL.toLowerCase() !== networks?.[chainIdToSetUp || 0]?.idoGraphURL?.toLowerCase();
+    const isDifferentLocker = lockerGraphURL.toLowerCase() !== networks?.[chainIdToSetUp || 0]?.lockerGraphURL?.toLowerCase();
     setCanSaveNetworksSettings(
       isStorageNetwork &&
       SUPPORTED_CHAIN_IDS.includes(chainIdToSetUp) &&
       webSocketRPC &&
       // TODO: add isValidWebSocketRPC with connecting to the ws and check the related chainIdToSetUp
-      isDifferentSettings,
-      isDifferentGraph
+      isDifferentSettings ||
+      isDifferentGraph ||
+      isDifferentLocker
     );
-  }, [networks, webSocketRPC, chainIdToSetUp, isStorageNetwork]);
+  }, [networks, webSocketRPC, chainIdToSetUp, isStorageNetwork,lockerGraphURL,idoGraphURL]);
 
   useEffect(() => {
     setWebSocketRPC(networks?.[chainIdToSetUp || 0]?.webSocketRPC || '');
     setIdoGraphURL(networks?.[chainIdToSetUp || 0]?.idoGraphURL || '')
+    setLockerGraphURL(networks?.[chainIdToSetUp || 0]?.lockerGraphURL || '')
   }, [networks, chainIdToSetUp])
 
 
@@ -76,7 +80,8 @@ export default function Networks() {
           networks: {
             [chainIdToSetUp]: {
               webSocketRPC,
-              idoGraphURL
+              idoGraphURL,
+              lockerGraphURL
             },
           },
         },
@@ -145,6 +150,14 @@ export default function Networks() {
         value={idoGraphURL}
         onChange={(e) => {
           setIdoGraphURL(e.target.value);
+        }}
+      />
+      <s.SpacerSmall />
+      <TextField
+        label="Locker Graph URL"
+        value={lockerGraphURL}
+        onChange={(e) => {
+          setLockerGraphURL(e.target.value);
         }}
       />
 
