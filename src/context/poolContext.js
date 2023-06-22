@@ -34,26 +34,29 @@ export const PoolContextProvider = ({ children }) => {
     idoGraph,
     lockerGraph
   } = useApplicationContext();
+
   //pool data
+ 
   const { data, refetch } = useQuery({
-    queryKey: ['pools',idoGraph],
-    queryFn: async () => 
+    queryKey: ['pools', idoGraph],
+    queryFn: async () =>
       await request(
-        process.env.REACT_APP_IDO_GRAPH_URL,
+        idoGraph,
         GET_ALL_LAUNCHPAD_INFO
       )
   }, {
     enabled: !!idoGraph
   })
-  
+
   useEffect(() => {
     setPoolDatas(data?.idopools)
-  }, [data])
+  }, [data, idoGraph])
 
 
   useEffect(() => {
     if (poolDatas) {
       (async () => {
+        if (allPools) setAllPools({})
         await Promise.all(
           poolDatas.map(async (item) => {
             const poolData = await utils.loadPoolData(item, contract.web3, ipfsInfuraDedicatedGateway).then((IDOPoolData) => {
@@ -69,13 +72,13 @@ export const PoolContextProvider = ({ children }) => {
 
   //locker data
   const { data: lockerData } = useQuery({
-    queryKey: ['lockers',lockerGraph],
+    queryKey: ['lockers', lockerGraph],
     queryFn: async () =>
       request(
         lockerGraph,
         GET_ALL_LOCKER
       ),
-  },{
+  }, {
     enabled: !!lockerGraph
   })
   useEffect(() => {
@@ -85,6 +88,7 @@ export const PoolContextProvider = ({ children }) => {
   useEffect(() => {
     if (lockerDatas) {
       (async () => {
+        if (allLocker) setAllLocker({}) 
         await Promise.all(
           lockerDatas.map(async (item) => {
             const lockerData = await utils.getLockerData(item, contract.web3).then((LockerData) => {

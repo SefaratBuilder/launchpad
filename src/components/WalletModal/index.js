@@ -12,10 +12,10 @@ import { CURRENCY } from '../../assets/images';
 import MetamaskIcon from '../../assets/images/metamask.png';
 import { ReactComponent as Close } from '../../assets/images/x.svg'
 import {
-//   Network,
+  //   Network,
   injected,
   SUPPORTED_NETWORKS,
-//   newWalletlink,
+  //   newWalletlink,
   newWalletConnect
 } from '../../connectors';
 import { SUPPORTED_WALLETS, WALLET_NAMES } from '../../constants';
@@ -222,30 +222,20 @@ export default function WalletModal(props) {
     isOpen,
     closeModal,
   } = props;
-//   const { height } = useWindowSize();
+  //   const { height } = useWindowSize();
 
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down('sm'));
 
   // important that these are destructed from the account-specific web3-react context
   const { active, chainId, account, connector, activate, deactivate, error } = useWeb3React();
-//   const isDark = useIsDarkMode()
-//   const wordpressData = useWordpressInfo()
+  //   const isDark = useIsDarkMode()
   const [availableNetworks, setAvailableNetworks] = useState([]);
   const [currentChainId, setCurrentChainId] = useState(0);
-
   useEffect(() => {
-    const networks = Object.values(SUPPORTED_NETWORKS).filter(({ chainId }) => {
-    //   if (wordpressData?.wpNetworkIds?.length) {
-    //     return wordpressData.wpNetworkIds.includes(chainId)
-    //   }
-
-      return true;
-    });
-
+    const networks = Object.values(SUPPORTED_NETWORKS)
     setAvailableNetworks(networks);
   }, [
-    // wordpressData
   ]);
 
   useEffect(() => {
@@ -278,6 +268,7 @@ export default function WalletModal(props) {
   // close modal when a connection is successful
   const activePrevious = usePrevious(active);
   const connectorPrevious = usePrevious(connector);
+
   useEffect(() => {
     if (isOpen && ((active && !activePrevious) || (connector && connector !== connectorPrevious && !error))) {
       setWalletView(WALLET_VIEWS.ACCOUNT);
@@ -290,9 +281,8 @@ export default function WalletModal(props) {
 
     if (connector instanceof InjectedConnector) {
       const result = await switchInjectedNetwork(currentChainId)
-
-      if (!result) {
-        return setWalletView(WALLET_VIEWS.ACCOUNT)
+      if (result) {
+        closeModal()
       }
     } // if the connector is walletconnect and the user has already tried to connect, manually reset the connector
     else if (connector instanceof WalletConnectConnector && connector.walletConnectProvider?.wc?.uri) {
@@ -329,8 +319,8 @@ export default function WalletModal(props) {
     switch (option.name) {
       case WALLET_NAMES.WALLET_CONNECT:
         return newWalletConnect(currentChainId)
-    //   case WALLET_NAMES.WALLET_LINK:
-    //     return newWalletlink(currentChainId)
+      //   case WALLET_NAMES.WALLET_LINK:
+      //     return newWalletlink(currentChainId)
       default:
         return
     }
@@ -353,7 +343,7 @@ export default function WalletModal(props) {
           return (
             <Option
               onClick={() => {
-                ;(currentChainId !== chainId || option.connector !== connector) &&
+                ; (currentChainId !== chainId || option.connector !== connector) &&
                   !option.href &&
                   tryActivation(option.connector)
               }}
@@ -410,7 +400,7 @@ export default function WalletModal(props) {
           <Option
             id={`connect-${key}`}
             onClick={() => {
-              ;(currentChainId !== chainId || option.connector !== connector) &&
+              ; (currentChainId !== chainId || option.connector !== connector) &&
                 !option.href &&
                 tryActivation(option.connector)
             }}
@@ -477,22 +467,22 @@ export default function WalletModal(props) {
               <InfoCard>
                 <AccountGroupingRow>
                   {formatConnectorName()}
-                    <div>
-                      <s.button
-                        secondary
-                        style={{ padding: '4px 6px', fontSize: '.825rem', fontWeight: 400, marginRight: '8px' }}
-                        onClick={() => {
-                          deactivate();
-                        }}
-                      >
-                        Disconnect
-                      </s.button>
-                      <s.button
-                        secondary
-                        style={{ padding: '4px 6px', fontSize: '.825rem', fontWeight: 400 }}
-                        onClick={() => {
-                          setWalletView(WALLET_VIEWS.OPTIONS);
-                        }}
+                  <div>
+                    <s.button
+                      secondary
+                      style={{ padding: '4px 6px', fontSize: '.825rem', fontWeight: 400, marginRight: '8px' }}
+                      onClick={() => {
+                        deactivate();
+                      }}
+                    >
+                      Disconnect
+                    </s.button>
+                    <s.button
+                      secondary
+                      style={{ padding: '4px 6px', fontSize: '.825rem', fontWeight: 400 }}
+                      onClick={() => {
+                        setWalletView(WALLET_VIEWS.OPTIONS);
+                      }}
                     >
                       Change
                     </s.button>
@@ -580,7 +570,6 @@ export default function WalletModal(props) {
       </UpperSection>
     )
   }
-
   return (
     <Dialog
       open={isOpen}
@@ -593,6 +582,6 @@ export default function WalletModal(props) {
     //   }
     >
       {getModalContent()}
-  </Dialog>
+    </Dialog>
   )
 }

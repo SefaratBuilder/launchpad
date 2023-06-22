@@ -132,20 +132,25 @@ const PoolRenderer = (props) => {
         <s.SpacerSmall />
         {
           !hasEnded && (
-            <>
-              <s.TextID>
-                {isStarted
-                  ? "End in"
-                  : "Start in"}
-              </s.TextID>
-              <Countdown
-                date={
-                  isStarted
-                    ? parseInt(end) * 1000
-                    : parseInt(start) * 1000
-                }
-              />
-            </>
+            <div style={{ display: 'flex', justifyContent: 'center', justifyItems: 'center' }}>
+              <div style={{ marginTop: '4px' }}>
+                <s.TextID>
+                  {isStarted
+                    ? "End in:"
+                    : "Start in:"}
+                </s.TextID>
+              </div>
+              <div style={{ marginLeft: '8px' }}>
+                <Countdown
+                  date={
+                    isStarted
+                      ? parseInt(end) * 1000
+                      : parseInt(start) * 1000
+                  }
+                />
+              </div>
+
+            </div>
           )
         }
         <s.TextID>Progress</s.TextID>
