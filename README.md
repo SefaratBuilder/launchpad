@@ -21,10 +21,13 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 ## Launch and Setting Up Application
 
 1. Set owner
+   
     ![SetOwner](./docs/images/SetOwner.png)
-2. Manage IPFS:
+1. Manage IPFS:
+
     ![ManageIPFS](./docs/images/ManageIPFS.png)
-3. Manage network:
+1. Manage network:
+   
    ![ManageNetwork](./docs/images/ManageNetwork.png)
   * BSC test net:
   + RPC: https://data-seed-prebsc-1-s2.binance.org:8545
@@ -34,7 +37,8 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
   + RPC: https://rpc.ankr.com/eth_goerli
   + IDO Graph URL https://api.studio.thegraph.com/query/48674/ido-factory-goerli/version/latest
   + Locker Graph URL: https://api.studio.thegraph.com/query/48288/my-locker-factory/version/latest
-4. Manage contract:
+1. Manage contract:
+   
   ![ManageContract](./docs/images/ManageContract.png)
   * BSC test net:
   + Fee Token Address: 0xaD337556Adfa1a1DE33DEedB5Af27Cb99D6A954d
