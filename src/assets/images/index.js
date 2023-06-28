@@ -1,9 +1,11 @@
 import ETH from './eth.png'
 import BNB from './bnb.png'
+import POLYGON from "./polygon.png"
 
 export const CURRENCY = {
   ETH,
   BNB,
+  POLYGON,
 
   // ------------
 
@@ -14,4 +16,5 @@ export const CURRENCY = {
   42: ETH,
   56: BNB,
   97: BNB,
+  80001: POLYGON
 }

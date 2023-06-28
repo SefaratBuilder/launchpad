@@ -80,6 +80,25 @@ export const networks = {
       symbol: "WBNB"
     }
   },
+  80001: {
+    name: "Polygon mumbai",
+    rpc: "https://rpc.ankr.com/polygon_mumbai",
+    chainId: 80001,
+    explorer: "https://mumbai.polygonscan.com/",
+    color: "#CC9B00",
+    multicall: "0x6e5BB1a5Ad6F68A8D7D6A5e47750eC15773d6042",
+    storage: "0xEE056D97c36563aeeEf20B9A3eF9238Bd4187b59",
+    baseCurrency: {
+      decimals: 18,
+      name: "MATIC",
+      symbol: "MATIC"
+    },
+    wrappedToken: {
+      address: "0x9c3C9283D3e44854697Cd22D3Faa240Cfb032889",
+      name: "Wrapped MATIC",
+      symbol: "WMATIC"
+    }
+  },
 }
 
 export const chainRouter = {
@@ -117,13 +136,13 @@ export const chainRouter = {
   ],
   80001: [
     {
-      name: "Shusiswap",
+      name: "Sushiswap",
       FACTORY: "0xc35DADB65012eC5796536bD9864eD8773aBc74C4",
       WETH: "0x9c3C9283D3e44854697Cd22D3Faa240Cfb032889",
       ROUTER: "0x1b02dA8Cb0d097eB8D57A175b88c7D8b47997506",
     },
   ],
-  
+
 };
 
 
