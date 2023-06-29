@@ -99,6 +99,25 @@ export const networks = {
       symbol: "WMATIC"
     }
   },
+  43113: {
+    name: "Avalanche testnet",
+    rpc: "https://rpc.ankr.com/avalanche_fuji",
+    chainId: 43113,
+    explorer: "https://testnet.snowtrace.io/",
+    color: "#CC9B00",
+    multicall: "0x6e5BB1a5Ad6F68A8D7D6A5e47750eC15773d6042",
+    storage: "0xEE056D97c36563aeeEf20B9A3eF9238Bd4187b59",
+    baseCurrency: {
+      decimals: 18,
+      name: "AVAX",
+      symbol: "AVAX"
+    },
+    wrappedToken: {
+      address: "0xd00ae08403b9bbb9124bb305c09058e32c39a48c",
+      name: "Wrapped AVAX",
+      symbol: "WAVAX"
+    }
+  },
 }
 
 export const chainRouter = {
@@ -138,7 +157,15 @@ export const chainRouter = {
     {
       name: "Sushiswap",
       FACTORY: "0xc35DADB65012eC5796536bD9864eD8773aBc74C4",
-      WETH: "0x9c3C9283D3e44854697Cd22D3Faa240Cfb032889",
+      WETH: "0x5b67676a984807a212b1c59ebfc9b3568a474f0a",
+      ROUTER: "0x1b02dA8Cb0d097eB8D57A175b88c7D8b47997506",
+    },
+  ],
+  43113: [
+    {
+      name: "Sushiswap",
+      FACTORY: "0xc35DADB65012eC5796536bD9864eD8773aBc74C4",
+      WETH: " 0xd00ae08403b9bbb9124bb305c09058e32c39a48c",
       ROUTER: "0x1b02dA8Cb0d097eB8D57A175b88c7D8b47997506",
     },
   ],
