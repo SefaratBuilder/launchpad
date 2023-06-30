@@ -37,6 +37,14 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
   + RPC: https://rpc.ankr.com/eth_goerli
   + IDO Graph URL https://api.studio.thegraph.com/query/48674/ido-factory-goerli/version/latest
   + Locker Graph URL: https://api.studio.thegraph.com/query/48288/my-locker-factory/version/latest
+  * Polygon test net:
+  + RPC: https://rpc.ankr.com/polygon_mumbai
+  + IDO Graph URL https://api.studio.thegraph.com/query/48288/mumbai-ido-factory/version/latest
+  + Locker Graph URL: https://api.studio.thegraph.com/query/48288/mumbai-locker-factory/version/latest
+  * Avalanche test net:
+  + RPC: https://rpc.ankr.com/avalanche_fuji
+  + IDO Graph URL https://api.studio.thegraph.com/query/48288/fuji-ido-factory/version/latest
+  + Locker Graph URL: https://api.studio.thegraph.com/query/48288/fuji-locker-factory/version/latest
 1. Manage contract:
    
   ![ManageContract](./docs/images/ManageContract.png)
@@ -48,6 +56,14 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
   + Fee Token Address: 0x5197B8D0937375e828AE4A11a35d982594153797
   + IDO Factory Address: 0x515AD0745AF9BEE8B82D039314e5a50088F01e19
   + Locker Factory Address: 0x6268Ad78C5eD1E1cab8B51341639c20a78f4EDe9
+  * Polygon test net:
+  + Fee Token Address: 0xaD337556Adfa1a1DE33DEedB5Af27Cb99D6A954d
+  + IDO Factory Address: 0xb983D772100d519b4e91C15EFF6a10764B601E6F
+  + Locker Factory Address: 0x3f11cfD3f2eC20F190FFCbAbD833d0B0Fc4F0356
+  * Avalanche test net:
+  + Fee Token Address: 0xaD337556Adfa1a1DE33DEedB5Af27Cb99D6A954d
+  + IDO Factory Address: 0xb983D772100d519b4e91C15EFF6a10764B601E6F
+  + Locker Factory Address: 0x2f91CC6529f91152999Aba81cdE0CaA98Ca3Ed65
 
 ## Add a new EVM-like chain
 
