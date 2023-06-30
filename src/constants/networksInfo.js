@@ -87,7 +87,7 @@ export const networks = {
     explorer: "https://mumbai.polygonscan.com/",
     color: "#CC9B00",
     multicall: "0x6e5BB1a5Ad6F68A8D7D6A5e47750eC15773d6042",
-    storage: "0xEE056D97c36563aeeEf20B9A3eF9238Bd4187b59",
+    storage: "0xa7472f384339D37EfE505a1A71619212495A973A",
     baseCurrency: {
       decimals: 18,
       name: "MATIC",
@@ -101,12 +101,12 @@ export const networks = {
   },
   43113: {
     name: "Avalanche testnet",
-    rpc: "https://rpc.ankr.com/avalanche_fuji",
+    rpc: "https://endpoints.omniatech.io/v1/avax/fuji/public",
     chainId: 43113,
     explorer: "https://testnet.snowtrace.io/",
     color: "#CC9B00",
     multicall: "0x6e5BB1a5Ad6F68A8D7D6A5e47750eC15773d6042",
-    storage: "0xEE056D97c36563aeeEf20B9A3eF9238Bd4187b59",
+    storage: "0xa7472f384339D37EfE505a1A71619212495A973A",
     baseCurrency: {
       decimals: 18,
       name: "AVAX",
@@ -165,7 +165,7 @@ export const chainRouter = {
     {
       name: "Sushiswap",
       FACTORY: "0xc35DADB65012eC5796536bD9864eD8773aBc74C4",
-      WETH: " 0xd00ae08403b9bbb9124bb305c09058e32c39a48c",
+      WETH: "0xd00ae08403b9bbb9124bb305c09058e32c39a48c",
       ROUTER: "0x1b02dA8Cb0d097eB8D57A175b88c7D8b47997506",
     },
   ],
